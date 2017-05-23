@@ -11,10 +11,11 @@ import android.widget.Spinner;
 
 public class MainActivity extends AppCompatActivity {
 
-    String datas[] = {"선택하세요","ListView", "GridView", "RecyclerView"};
+    String datas[] = {"선택하세요","ListView", "CustomList", "GridView", "RecyclerView"};
     final int LIST = 1;
-    final int GRID = 2;
-    final int RECYCLER = 3;
+    final int CUSTOM = 2;
+    final int GRID = 3;
+    final int RECYCLER = 4;
 
     Spinner spinner;
 
@@ -51,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
                         intent = new Intent(MainActivity.this, RecyclerActivity.class);
                         startActivity(intent);
                         break;
+                    case CUSTOM:
+                        intent = new Intent(MainActivity.this, CustomListActivity.class);
+                        startActivity(intent);
                     default: // 선택하세요
 
                 }
