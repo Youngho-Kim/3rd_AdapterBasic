@@ -3,6 +3,7 @@ package com.veryworks.android.adapterbasic;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,16 +63,30 @@ class CustomAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // xml 을 class 로 변환한다.
-        View view = inflater.inflate(R.layout.item_custom_list, null);
-        TextView no = (TextView) view.findViewById(R.id.txtNo);
-        TextView title = (TextView) view.findViewById(R.id.txtTitle);
+        Log.d("ConvertView",position+" : convertView="+convertView);
+
+        Holder holder;
+        if (convertView == null) {
+            holder = new Holder();
+            convertView = inflater.inflate(R.layout.item_custom_list, null);
+            holder.no = (TextView) convertView.findViewById(R.id.txtNo);
+            holder.title = (TextView) convertView.findViewById(R.id.txtTitle);
+            convertView.setTag(holder);
+        }else{
+            holder = (Holder) convertView.getTag();
+        }
 
         // 매줄에 해당되는 데이터를 꺼낸다
         Data data = datas.get(position);
-        no.setText(data.getId()+"");
-        title.setText(data.getTitle());
+        holder.no.setText(data.getId()+"");
+        holder.title.setText(data.getTitle());
 
-        return view;
+        return convertView;
+    }
+
+    class Holder {
+        public TextView no;
+        public TextView title;
     }
 }
 
